@@ -1,32 +1,30 @@
 ﻿using DotNet8WebApi.CustomFixedWindowRateLimiting.Services;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace DotNet8WebApi.CustomFixedWindowRateLimiting.Controllers
+namespace DotNet8WebApi.CustomFixedWindowRateLimiting.Controllers;
+
+[Route("api/[controller]")]
+[ApiController]
+public class RateLimitingController : ControllerBase
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class RateLimitingController : ControllerBase
+    private readonly FixedWindowRateLimiter _fixedWindowRateLimiter;
+
+    public RateLimitingController(FixedWindowRateLimiter fixedWindowRateLimiter)
     {
-        private readonly FixedWindowRateLimiter _fixedWindowRateLimiter;
+        _fixedWindowRateLimiter = fixedWindowRateLimiter;
+    }
 
-        public RateLimitingController(FixedWindowRateLimiter fixedWindowRateLimiter)
+    [HttpPost("fixed-window")]
+    public IActionResult Execute()
+    {
+        var context = HttpContext;
+        var clientId = context.Connection.RemoteIpAddress?.ToString();
+
+        if (!_fixedWindowRateLimiter.IsRequestAllowed(clientId!))
         {
-            _fixedWindowRateLimiter = fixedWindowRateLimiter;
+            return StatusCode(429, "Too many requests.");
         }
 
-        [HttpPost("fixed-window")]
-        public IActionResult Execute()
-        {
-            var context = HttpContext;
-            var clientId = context.Connection.RemoteIpAddress?.ToString();
-
-            if (!_fixedWindowRateLimiter.IsRequestAllowed(clientId!))
-            {
-                return StatusCode(429, "Too many requests.");
-            }
-
-            return Ok();
-        }
+        return Ok();
     }
 }
