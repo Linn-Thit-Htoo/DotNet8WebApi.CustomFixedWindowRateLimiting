@@ -1,7 +1,4 @@
-﻿using DotNet8WebApi.CustomFixedWindowRateLimiting.Services;
-using Microsoft.AspNetCore.Mvc;
-
-namespace DotNet8WebApi.CustomFixedWindowRateLimiting.Controllers;
+﻿namespace DotNet8WebApi.CustomFixedWindowRateLimiting.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
