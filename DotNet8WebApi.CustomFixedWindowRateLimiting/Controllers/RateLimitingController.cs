@@ -1,6 +1,4 @@
-﻿using System.Net;
-
-namespace DotNet8WebApi.CustomFixedWindowRateLimiting.Controllers;
+﻿namespace DotNet8WebApi.CustomFixedWindowRateLimiting.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
