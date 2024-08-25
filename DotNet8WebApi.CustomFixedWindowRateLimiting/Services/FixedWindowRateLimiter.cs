@@ -1,6 +1,4 @@
-﻿using System.Collections.Concurrent;
-
-namespace DotNet8WebApi.CustomFixedWindowRateLimiting.Services
+﻿namespace DotNet8WebApi.CustomFixedWindowRateLimiting.Services
 {
     public class FixedWindowRateLimiter
     {
