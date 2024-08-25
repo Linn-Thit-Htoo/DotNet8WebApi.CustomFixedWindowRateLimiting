@@ -11,6 +11,8 @@ public class RateLimitingController : ControllerBase
         _fixedWindowRateLimiter = fixedWindowRateLimiter;
     }
 
+    #region Execute
+
     [HttpPost("fixed-window")]
     public IActionResult Execute()
     {
@@ -24,4 +26,6 @@ public class RateLimitingController : ControllerBase
 
         return Ok();
     }
+
+    #endregion
 }
